@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cmath>  // Для математических функций
+
+using namespace std;
+
+// Функция для вычисления y(x)
+double calculate_y(double x) {
+    if (x <= 3) {
+        return log10(fabs(pow(2, x) + pow(x, 7) + pow(fabs(x - 4), x)));  // lg |2^x + x^7 + |x-4|^x|
+    } else if (x > 3 && x < 5) {
+        return pow(log(x / (1 + pow(x, 2))), 9) * 4;  // ln^9 (x / (1+x^2))^4
+    } else { // x >= 5
+        return acos(1 / x) + 1;  // arccos (1/x) + 1
+    }
+}
+
+int main() {
+    double x;
+
+    // Ввод значения x
+    cout << "Введите значение x: ";
+    cin >> x;
+
+    // Проверка на допустимость x
+    if (x <= 0) {
+        cout << "Ошибка: x должно быть положительным!" << endl;
+        return 1;
+    }
+
+    // Вычисление y(x)
+    double y = calculate_y(x);
+
+    // Вывод результата
+    cout << "y(" << x << ") = " << y << endl;
+
+    return 0;
+}
