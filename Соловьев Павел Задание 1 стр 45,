@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <cmath> 
+using namespace std;
+void fillMatrixRandom(vector<vector<int>>& matrix) {
+    for (size_t i = 0; i < matrix.size(); ++i) {
+        for (size_t j = 0; j < matrix[i].size(); ++j) {
+            matrix[i][j] = rand() % 101 - 50; 
+        }
+    }
+}
+void printMatrix(const vector<vector<int>>& matrix) {
+    for (size_t i = 0; i < matrix.size(); ++i) {
+        for (size_t j = 0; j < matrix[i].size(); ++j) {
+            cout << matrix[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
+void findPositiveElements(const vector<vector<int>>& matrix, int diff) {
+    int count = 0;
+    cout << "Положительные элементы, модуль разности индексов которых равен " << diff << ":" << endl;
+    for (size_t i = 0; i < matrix.size(); ++i) {
+        for (size_t j = 0; j < matrix[i].size(); ++j) {
+            if (matrix[i][j] > 0 && abs((int)i - (int)j) == diff) {
+                cout << "Элемент [" << i << "][" << j << "] = " << matrix[i][j] << endl;
+                count++;
+            }
+        }
+    }
+    cout << "Общее количество: " << count << endl;
+}
+int main() {
+    srand(time(0)); 
+    char choice;
+    do {
+        cout << "Введите количество строк: ";
+        cin >> rows;
+        cout << "Введите количество столбцов: ";
+        cin >> cols;
+        if (rows <= 0 || cols <= 0) {
+            cout << "Некорректная размерность массива. Пожалуйста, введите положительные числа." << endl;
+            continue; 
+        }
+        vector<vector<int>> matrix(rows, vector<int>(cols));
+        fillMatrixRandom(matrix);
+        cout << "Сгенерированный массив:" << endl;
+        printMatrix(matrix);
+        cout << "Введите значение модуля разности индексов: ";
+        cin >> diff;
+        findPositiveElements(matrix, diff);
+        cout << "Вы хотите повторить выполнение программы? (y/n): ";
+        cin >> choice;
+
+    } while (choice == 'y' || choice == 'Y');
+    cout << "Программа завершена." << endl;
+    return 0;
+}
